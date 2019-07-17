@@ -37,15 +37,14 @@ public class SingleEntityTest {
     public void should_throw_exception_when_add_name_biggner_than_64_size() throws Exception {
         SingleEntity singleEntity=new SingleEntity();
         singleEntity.setName("zhangzhangaaaaaazhangaaaaaaaaaaaazhangaaaaaazhangaaaaaazhangaaaaaazhangaaaaaazhangaaaaaazhangaaaaaa");
+        repository.save(singleEntity);
 
-        MyException myException=assertThrows(MyException.class,()->{
-            if(singleEntity.getName().length()>64){
-                throw new MyException("length should less than 64 ");
-            }
-            repository.save(singleEntity);
+        assertThrows(Exception.class, () -> {
+            repository.findAll();
         });
 
-        assertEquals("length should less than 64 ",myException.getMessage());
     }
+
+
 
 }
